@@ -1,6 +1,6 @@
 export const authEndpoint="https://accounts.spotify.com/authorize"
 const clientId="e0dac4cc38ef4a469e96c55d9906006f"
-const redirectUri="http://localhost:3000/"
+const redirectUri="https://project2021.netlify.app/"
  const scopes=[ "user-read-currently-playing",
  "user-read-recently-played",
  "user-read-playback-state",
