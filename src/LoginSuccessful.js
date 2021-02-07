@@ -1,7 +1,7 @@
 import { useState } from "react"
 import React from 'react'
 import "./LoginSuccessful.css"
-import image from "./logo.png"
+import image from "./logo_big.png"
 function LoginSuccessful(props) {
     const {data}=props;
     
@@ -11,12 +11,16 @@ function LoginSuccessful(props) {
         const{display_name:userName,images,id:userId}=data;
         return (
             <div className="successful">
-             <img  src={image} className="logobig" alt="Spotify logo" />
-             <img src={(images[0])?images[0].url:"https://grandimageinc.com/wp-content/uploads/2015/09/icon-user-default-300x300.png"} alt="PROFILE"></img>
-              <h2>Login Successful!</h2>
-    <h2>Welcome, {userName}</h2>
-    
-                <h2 className="userid">User id : {userId}</h2>
+             <img  src={image} className="logo" alt="Spotify logo" />
+             <h1>Login Successful!</h1>
+             <hr></hr>
+             <section>
+             <img src={(images[0])?images[0].url:"https://grandimageinc.com/wp-content/uploads/2015/09/icon-user-default-300x300.png"} className="userpic" alt="PROFILE"></img>
+            
+            <h2>Welcome, {userName}</h2>
+            
+                        <h2 className="userid">User id : {userId}</h2>
+             </section> 
                         </div>
         )
       
