@@ -5,9 +5,9 @@ place-items: center ;
 background-color: black;  
 
 }
-    .login > img {
+    .logo_big{
         width: auto;
-        height: 200px;
+        height: 400px;
       }
 a{
     color: black;
@@ -21,7 +21,7 @@ button {
     text-align: center;
     border-radius: 99px;
     font-size: 30px;
-    padding: 20px ;
+    padding: 15px ;
     
     bottom: 5px;
 }
