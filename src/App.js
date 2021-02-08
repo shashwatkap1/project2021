@@ -6,15 +6,16 @@ import {getTokenFromUrl} from "./spotify"
 import SpotifyWebApi from "spotify-web-api-js";
 import Player from "./Player"
 import {useDataLayerValue} from "./DataLayer"
-import LoginSuccessful from "./LoginSuccessful"
+import LoginSuccessful from "./Successful2"
 
 
-const spotify = new SpotifyWebApi();
+export const spotify = new SpotifyWebApi();
 function App() {
   
 
   const [token,setToken]=useState();
   const[userData,setuserData]=useState();
+  const [curr,setCurr]=useState();
   useEffect(() => {
     const hash= getTokenFromUrl();
     window.location.hash="";
@@ -30,14 +31,19 @@ function App() {
       setuserData(data);
       }
   getData();
-    
-  
+  const getPlaylist=async ()=>{
+    const data=await spotify.getMyCurrentPlaybackState()
+    console.log(data)
+    setCurr(data)
+    }    
+  getPlaylist()
     
   }, []);
   
 console.log(userData)
 
-  return <div className="app">{token ? <LoginSuccessful data={userData}/>: <Login />}</div>;  
+  return <div className="app">{token ? <LoginSuccessful data={userData} curr={curr}/>: <Login />}</div>;  
 }
 
 export default App;
+ 

@@ -6,7 +6,7 @@ function Login() {
     return (
         <div className="login">
         <img src={logo} className="logo_big" alt="Spotify logo" />
-            <button > <a href={loginUrl}> LOGIN WITH SPOTIFY </a></button>
+            <button className="btn"> <a href={loginUrl}> LOGIN WITH SPOTIFY </a></button>
       
         </div>
     )
