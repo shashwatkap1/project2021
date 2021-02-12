@@ -30,19 +30,12 @@ function App() {
       console.log(data)
       setuserData(data);
       }
-  getData();
-  const getPlaylist=async ()=>{
-    const data=await spotify.getMyCurrentPlaybackState()
-    console.log(data)
-    setCurr(data)
-    }    
-  getPlaylist()
-    
+    getData()
   }, []);
   
 console.log(userData)
 
-  return <div className="app">{token ? <LoginSuccessful data={userData} curr={curr}/>: <Login />}</div>;  
+  return <div className="app">{token ? <LoginSuccessful data={userData} />: <Login />}</div>;  
 }
 
 export default App;

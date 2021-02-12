@@ -1,15 +1,21 @@
 .successful{
     padding:30px;
 height: 100vh;
-display: contents;
-align-items:center;
+
   background-color: ghostwhite;
 }
     
     button{
 outline:none;
     }
-
+.userDisplay{
+    flex:0.2;
+    min-width: 200px;
+}
+.playing{
+    flex:0.8;
+    
+}
 h2{
     padding:15px;
     font-size: 28px;
@@ -21,6 +27,8 @@ h2{
     top:20px;
     right:10px;
     width:170px;
+    height: 40px;
+    object-fit: contain;
 
     
 }

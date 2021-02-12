@@ -1,8 +1,11 @@
+
 import { useState,useEffect } from "react"
 import React from 'react'
 import "./successful.css"
 import image from "./logo_big.png"
 import {spotify} from "./App" 
+import NotCurr from "./NotCurr"
+
 function LoginSuccessful(props) {
     const {data}=props;
     function refresh(){
@@ -10,40 +13,32 @@ function LoginSuccessful(props) {
         
     }
     function next(){
-        setCount(count+1)
-    
+        spotify.play()
         spotify.skipToNext()
+     
+setCount(count+1)
+         getPlaylist()
         
+                
     }
     
+    
+    const getPlaylist=async ()=>{
+        const data=await spotify.getMyCurrentPlaybackState()
+        const data2=await spotify.getMyCurrentPlayingTrack()
+        console.log(data2)
 
+        setCurr(data)
+        }    
+    
 
     const[curr,setCurr]=useState();
     const[count,setCount]=useState(0);
-    const Notcurr=()=>
-    {
-        return(
-            <div >
-            <h2>Seems empty here &#128517;
-             <br></br>
-             Here's what you can do:
-            <br></br>
-             ->Play a song on any device 
-            <br></br>
-            ->Hit refresh
-            </h2>
-                
-            </div>
-        )
-    }
+   
    
     useEffect(() => {
-        const getPlaylist=async ()=>{
-            const data=await spotify.getMyCurrentPlaybackState()
-            console.log(data)
-            setCurr(data)
-            }    
-          getPlaylist()
+        getPlaylist()
+       
             
     }, [count])
     const Curr=()=>{
@@ -55,7 +50,7 @@ function LoginSuccessful(props) {
         audio.pause()
        
         return(
-            <div>
+            <div className="playing">
           
     <h1>Currently playing 🎶 : </h1> 
         
@@ -77,7 +72,7 @@ function LoginSuccessful(props) {
               const{display_name:userName,images,id:userId}=data;
             
         return (
-            <div className="successful">
+            <div className="userDisplay">
              <img  src={image} className="logo" alt="Spotify logo" />
              <h1>Login Successful!</h1>
              <hr></hr>
@@ -92,7 +87,7 @@ function LoginSuccessful(props) {
              
              {curr && <Curr/>}
              <button className="music" onClick={()=>refresh()}> Refresh:🔄</button>
-             {!curr && <Notcurr/>}
+             {!curr && <NotCurr/>}
 
              </div>
                      
@@ -109,6 +104,5 @@ else{
 }
 
 export default LoginSuccessful
-
 
 
