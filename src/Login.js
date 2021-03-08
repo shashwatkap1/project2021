@@ -26,12 +26,7 @@ function Login() {
 					marginRight: '20%',
 				}}
 			>
-				<Button
-					variant='contained'
-					size='medium'
-					color='primary'
-					href={loginUrl}
-				>
+				<Button variant='contained' size='medium' color='primary' href={loginUrl}>
 					LOGIN WITH SPOTIFY
 				</Button>
 			</div>
