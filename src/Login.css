@@ -1,28 +1,13 @@
-.login{
-display: grid;
-height: 100vh;
-place-items: center ;
-background-color: black;  
+.login {
+	align-items: center;
+	justify-content: center;
+	min-height: 100vh;
 
+	background-color: black;
 }
-    .logo_big{
-        width: auto;
-        height: 200px;
-      }
-a{
-    color: black;
-    text-decoration: none;
-    text-decoration: solid;
-}
-.btn {
-    color: black;
-    
-    background-color:springgreen;
-    text-align: center;
-    border-radius: 99px;
-    font-size: 30px;
-    padding: 15px ;
-    margin:5px;
-    width: 300px;
-    bottom: 5px;
+.logo_big {
+	height: 80%;
+	padding: 10px;
+	width: 80%;
+	object-fit: contain;
 }

@@ -5,42 +5,43 @@ import "./successful.css"
 import image from "./logo_big.png"
 import {spotify} from "./App" 
 import NotCurr from "./NotCurr"
-
+import Sidebar from './Sidebar.js'
 function LoginSuccessful(props) {
     const {data}=props;
+    
     function refresh(){
-        setCount(count+1)
+        setCount((state)=>{return{count:state.count+1}})
         
     }
     function next(){
-        spotify.play()
+    
         spotify.skipToNext()
      
-setCount(count+1)
-         getPlaylist()
+refresh()
         
                 
     }
     
     
-    const getPlaylist=async ()=>{
-        const data=await spotify.getMyCurrentPlaybackState()
-        const data2=await spotify.getMyCurrentPlayingTrack()
-        console.log(data2)
-
-        setCurr(data)
-        }    
+       
     
 
     const[curr,setCurr]=useState();
     const[count,setCount]=useState(0);
    
    
-    useEffect(() => {
+    useEffect(() => { 
+       
+        const getPlaylist=async ()=>{
+        const data=await spotify.getMyCurrentPlaybackState()
+        
+        setCurr((data))
+        console.log(data.item.name)
+        }
         getPlaylist()
        
             
-    }, [count])
+    },[count] )
     const Curr=()=>{
         const{device:{name :devmodel="Dummy"} ,item :{name:track="Null", preview_url:mp3_url}}=curr
         const audio=new Audio(mp3_url)
@@ -50,6 +51,8 @@ setCount(count+1)
         audio.pause()
        
         return(
+
+        
             <div className="playing">
           
     <h1>Currently playing 🎶 : </h1> 

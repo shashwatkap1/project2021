@@ -1,15 +1,42 @@
-import React from 'react'
-import "./Login.css"
-import {loginUrl} from "./spotify"
-import logo from "./logo_big.png"
+import React from 'react';
+import { Button, Container, Grid, useMediaQuery } from '@material-ui/core';
+import './Login.css';
+import { loginUrl } from './spotify';
+import logo from './logo_big.png';
+
 function Login() {
-    return (
-        <div className="login">
-        <img src={logo} className="logo_big" alt="Spotify logo" />
-            <button className="btn"> <a href={loginUrl}> LOGIN WITH SPOTIFY </a></button>
-      
-        </div>
-    )
+	return (
+		<div className='login'>
+			<div
+				style={{
+					display: 'block',
+					marginLeft: '50px',
+					marginRight: 'auto',
+					paddingTop: '20%',
+				}}
+			>
+				<img className='logo_big' src={logo} alt='Spotify logo'></img>
+			</div>
+
+			<div
+				style={{
+					marginTop: '20%',
+					display: 'grid',
+					marginLeft: '20%',
+					marginRight: '20%',
+				}}
+			>
+				<Button
+					variant='contained'
+					size='medium'
+					color='primary'
+					href={loginUrl}
+				>
+					LOGIN WITH SPOTIFY
+				</Button>
+			</div>
+		</div>
+	);
 }
 
-export default Login
+export default Login;
