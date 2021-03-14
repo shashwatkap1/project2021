@@ -10,9 +10,9 @@ function Login() {
 			<div
 				style={{
 					display: 'block',
-					marginLeft: '50px',
-					marginRight: 'auto',
-					paddingTop: '20%',
+					marginLeft: '25%',
+					marginRight: '5%',
+					paddingTop: '5%',
 				}}
 			>
 				<img className='logo_big' src={logo} alt='Spotify logo'></img>
@@ -26,7 +26,7 @@ function Login() {
 					marginRight: '20%',
 				}}
 			>
-				<Button variant='contained' size='medium' color='primary' href={loginUrl}>
+				<Button variant='contained' size='large' color='primary' href={loginUrl}>
 					LOGIN WITH SPOTIFY
 				</Button>
 			</div>

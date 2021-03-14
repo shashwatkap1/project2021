@@ -1,48 +1,190 @@
-import React,{useState,useEffect} from 'react'
-import './Body.css'
-import {spotify} from "./App"
+import {
+	Grid,
+	Button,
+	Typography,
+	LinearProgress,
+	Divider,
+	Avatar,
+	withWidth,
+} from '@material-ui/core';
+import React, { useState, useEffect } from 'react';
+import { spotify } from './App';
+import logo from './LOGO.png';
+import './Body.css';
+function Body(props) {
+	const [playlists, setPlaylists] = useState();
+	const [tracks, setTracks] = useState();
+	const [recentlyPlayed, setRecentlyPlayed] = useState();
+	const default_img =
+		'https://grandimageinc.com/wp-content/uploads/2015/09/icon-user-default-300x300.png';
+	const { user, width } = props;
+	const {
+		display_name: name,
+		images: [{ url = default_img }],
+	} = user;
+	useEffect(() => {
+		const getPlaylist = async () => {
+			const playlists = await spotify.getUserPlaylists();
 
-function Body() {
+			setPlaylists(playlists.items);
+		};
+		async function getRecentlyPlayed() {
+			const recentlyPlayed = await spotify.getMyRecentlyPlayedTracks();
 
-    const [curr,setCurr]=useState()
-    const[count,setCount]=useState()
+			const arr = recentlyPlayed.items;
+			const uniqueAges = [
+				...new Set(
+					arr.map(
+						(obj) =>
+							obj.track.name + '^' + obj.track.artists[0].name + '^' + obj.track.album.images[0].url
+					)
+				),
+			];
 
-    function update(){
-        setCount((state)=>{return {count:count+1}})
-    }
-    function skip(){
-        spotify.skipToNext()
-        
+			const finalArr = [];
+			uniqueAges.map((i) => {
+				const temp = i.split('^');
 
-    }
+				const [a, b, c] = temp;
+				finalArr.push({ track: a, artist: b, url: c });
+				return { name: a, artist: b, url: c };
+			});
 
-    useEffect(() => {
-    const getcurr=async()=>{
-        const data= await spotify.getMyCurrentPlayingTrack()
-        const data2=await spotify.getMyCurrentPlaybackState()
-        console.log(data)
-        setCurr(data)
-    }
-    getcurr()
-    
-}, [count])
+			arr.map((i) => i.track.name).filter((value, index, self) => self.indexOf(value) === index);
 
-if(curr)
-{const {item:{name:track,}}=curr
-return (
-    <div className="body">
- <button onClick={update}>Refresh</button>
- <button onClick={()=>{skip()}}>Skip</button>
-       <h2>Body</h2> 
-    </div>
-)}
+			setRecentlyPlayed(finalArr);
+		}
 
-    else{
-        return(
-            <h1>Seems empty</h1>
+		getRecentlyPlayed();
+		getPlaylist();
+	}, []);
+	const style = {
+		image: {
+			objectFit: 'contain',
+			height: '100px',
+			borderRadius: '20%',
+		},
+		imageTrack: { objectFit: 'contain', height: '50px', borderRadius: '10%' },
+		logo: {
+			objectFit: 'contain',
+			position: 'fixed',
+			top: 0,
+			height: '80px',
+			paddingLeft: '10px',
+			zIndex: '1',
+		},
+	};
+	function handleClick(playlist) {
+		const getTracks = async () => {
+			const tracks = await spotify.getPlaylistTracks(playlist.id);
 
-        )
-    }
+			setTracks(tracks);
+		};
+		getTracks();
+	}
+	function Header() {
+		return (
+			<div>
+				<img style={style.logo} src={logo} alt='logo' />
+				<div
+					style={{
+						right: 0,
+						top: 0,
+						position: 'fixed',
+						paddingRight: '5px',
+						paddingTop: '10px',
+						display: 'flex',
+						alignItems: 'center',
+					}}
+				>
+					<Avatar src={url} alt='USER_IMAGE' style={{ marginRight: '10px' }}></Avatar>
+
+					<Typography variant='h6'>{name}</Typography>
+				</div>
+			</div>
+		);
+	}
+	if (playlists) {
+		return (
+			<div
+				style={{
+					paddingTop: '60px',
+					paddingBottom: '88px',
+					height: '100%',
+					background: 'linear-gradient(to   right, #FBD786,#C6FFDD)',
+				}}
+			>
+				<Grid container justify='center' style={{ paddingBottom: '30px' }}>
+					<Typography variant='h3' style={{ fontWeight: 600 }}>
+						Playlists
+					</Typography>
+				</Grid>
+
+				<Grid container style={{ paddingLeft: '10px', paddingRight: '10px' }}>
+					{playlists.map((playlist) => {
+						const {
+							description,
+							name,
+							images: [{ url }],
+						} = playlist;
+
+						return (
+							<Grid
+								container
+								item
+								style={{ paddingTop: '20px', paddingBottom: '30px' }}
+								sm={4}
+								xs={6}
+								direction='column'
+								playlist={playlist}
+								alignItems='center'
+								justify='flex-start'
+								onClick={() => handleClick(playlist)}
+							>
+								<img src={url} style={style.image} alt='PLAYLIST'></img>
+								<Typography align='center' variant='h5'>
+									{name}
+								</Typography>{' '}
+							</Grid>
+						);
+					})}
+				</Grid>
+				<Grid container justify='center' style={{ paddingTop: '20px', paddingBottom: '30px' }}>
+					<Typography variant='h3' style={{ fontWeight: 600 }}>
+						Recently Played
+					</Typography>
+				</Grid>
+				<Grid container style={{ paddingTop: '30px', paddingLeft: '25px', paddingRight: '10px' }}>
+					{recentlyPlayed.map((track) => {
+						const { track: name, artist, url } = track;
+						return (
+							<Grid
+								container
+								item
+								xs={4}
+								sm={2}
+								justify='flex-start'
+								alignItems='center'
+								style={{ paddingTop: '20px', paddingRight: '10px' }}
+							>
+								<Grid item>
+									<img src={url} alt='hello' style={style.imageTrack}></img>
+									<Typography align='left' variant='h6'>
+										{name}
+									</Typography>{' '}
+									<Typography align='left' variant='subtitle1'>
+										{artist}
+									</Typography>{' '}
+								</Grid>
+							</Grid>
+						);
+					})}
+				</Grid>
+			</div>
+		);
+	} else {
+		return <LinearProgress color='primary'></LinearProgress>;
+	}
 }
 
-export default Body
+export default withWidth()(Body);
