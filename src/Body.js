@@ -32,11 +32,18 @@ function Body(props) {
 			const recentlyPlayed = await spotify.getMyRecentlyPlayedTracks();
 
 			const arr = recentlyPlayed.items;
+			console.log(recentlyPlayed.items);
 			const uniqueAges = [
 				...new Set(
 					arr.map(
 						(obj) =>
-							obj.track.name + '^' + obj.track.artists[0].name + '^' + obj.track.album.images[0].url
+							obj.track.name +
+							'^' +
+							obj.track.artists[0].name +
+							'^' +
+							obj.track.album.images[0].url +
+							'^' +
+							obj.track.preview_url
 					)
 				),
 			];
@@ -45,9 +52,9 @@ function Body(props) {
 			uniqueAges.map((i) => {
 				const temp = i.split('^');
 
-				const [a, b, c] = temp;
-				finalArr.push({ track: a, artist: b, url: c });
-				return { name: a, artist: b, url: c };
+				const [a, b, c, d] = temp;
+				finalArr.push({ track: a, artist: b, url: c, preview: d });
+				return { name: a, artist: b, url: c, preview: d };
 			});
 
 			arr.map((i) => i.track.name).filter((value, index, self) => self.indexOf(value) === index);
@@ -104,6 +111,18 @@ function Body(props) {
 			</div>
 		);
 	}
+	let audio = new Audio();
+	const toggleTrack = (track) => {
+		const mp3 = track.preview;
+
+		if (mp3 !== 'null') {
+			audio.pause();
+
+			audio = new Audio(mp3);
+
+			audio.play();
+		}
+	};
 	if (playlists) {
 		return (
 			<div
@@ -156,19 +175,25 @@ function Body(props) {
 				</Grid>
 				<Grid container style={{ paddingTop: '30px', paddingLeft: '25px', paddingRight: '10px' }}>
 					{recentlyPlayed.map((track) => {
-						const { track: name, artist, url } = track;
+						const { track: name, artist, url, preview } = track;
 						return (
 							<Grid
 								container
 								item
-								xs={4}
+								xs={6}
 								sm={2}
+								spacing={1}
 								justify='flex-start'
 								alignItems='center'
-								style={{ paddingTop: '20px', paddingRight: '10px' }}
+								// style={{ paddingTop: '20px', paddingRight: '10px' }}
 							>
 								<Grid item>
-									<img src={url} alt='hello' style={style.imageTrack}></img>
+									<img
+										src={url}
+										alt='hello'
+										onClick={() => toggleTrack(track)}
+										style={{ ...style.imageTrack, cursor: 'pointer' }}
+									></img>
 									<Typography align='left' variant='h6'>
 										{name}
 									</Typography>{' '}
