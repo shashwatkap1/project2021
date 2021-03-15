@@ -18,10 +18,8 @@ function Body(props) {
 	const default_img =
 		'https://grandimageinc.com/wp-content/uploads/2015/09/icon-user-default-300x300.png';
 	const { user, width } = props;
-	const {
-		display_name: name,
-		images: [{ url = default_img }],
-	} = user;
+	const { display_name: name, images } = user;
+	const url = images[0] ? images[0].url : '';
 	useEffect(() => {
 		const getPlaylist = async () => {
 			const playlists = await spotify.getUserPlaylists();
@@ -104,7 +102,7 @@ function Body(props) {
 						alignItems: 'center',
 					}}
 				>
-					<Avatar src={url} alt='USER_IMAGE' style={{ marginRight: '10px' }}></Avatar>
+					<Avatar src={url} alt={name} style={{ marginRight: '10px' }}></Avatar>
 
 					<Typography variant='h6'>{name}</Typography>
 				</div>
@@ -134,12 +132,17 @@ function Body(props) {
 				}}
 			>
 				<Grid container justify='center' style={{ paddingBottom: '30px' }}>
-					<Typography variant='h3' style={{ fontWeight: 600 }}>
+					<Typography
+						variant='h3'
+						style={{
+							fontWeight: 600,
+						}}
+					>
 						Playlists
 					</Typography>
 				</Grid>
 
-				<Grid container style={{ paddingLeft: '10px', paddingRight: '10px' }}>
+				<Grid container justify='center' style={{ paddingLeft: '10px', paddingRight: '10px' }}>
 					{playlists.map((playlist) => {
 						const {
 							description,
@@ -173,11 +176,7 @@ function Body(props) {
 						Recently Played
 					</Typography>
 				</Grid>
-				<Grid
-					container
-					justify='center'
-					style={{ paddingTop: '30px', paddingLeft: '25px', paddingRight: '10px' }}
-				>
+				<Grid container justify='center' style={{ paddingLeft: '10px', paddingRight: '10px' }}>
 					{recentlyPlayed.map((track) => {
 						const { track: name, artist, url, preview } = track;
 						return (
@@ -185,26 +184,24 @@ function Body(props) {
 								container
 								item
 								xs={6}
-								sm={2}
-								spacing={1}
+								sm={3}
+								style={{ paddingTop: '20px', paddingBottom: '30px' }}
+								direction='column'
 								justify='flex-start'
 								alignItems='center'
-								style={{ paddingTop: '20px', paddingRight: '10px' }}
 							>
-								<Grid item>
-									<img
-										src={url}
-										alt='hello'
-										onClick={() => toggleTrack(track)}
-										style={{ ...style.imageTrack, cursor: 'pointer' }}
-									></img>
-									<Typography align='left' variant='h6'>
-										{name}
-									</Typography>{' '}
-									<Typography align='left' variant='subtitle1'>
-										{artist}
-									</Typography>{' '}
-								</Grid>
+								<img
+									src={url}
+									alt='hello'
+									onClick={() => toggleTrack(track)}
+									style={{ ...style.imageTrack, cursor: 'pointer' }}
+								></img>
+								<Typography align='center' variant='h6'>
+									{name}
+								</Typography>{' '}
+								<Typography align='center' variant='subtitle1'>
+									{artist}
+								</Typography>{' '}
 							</Grid>
 						);
 					})}

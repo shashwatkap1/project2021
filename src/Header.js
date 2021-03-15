@@ -22,10 +22,8 @@ function Header(props) {
 	const default_img =
 		'https://grandimageinc.com/wp-content/uploads/2015/09/icon-user-default-300x300.png';
 	const { user } = props;
-	const {
-		display_name: name,
-		images: [{ url = default_img }],
-	} = user;
+	const { display_name: name, images } = user;
+	const url = images[0] ? images[0].url : 'fgh';
 
 	return (
 		<div style={style.headerContainer}>
@@ -41,7 +39,7 @@ function Header(props) {
 					alignItems='center'
 					style={{ paddingRight: '10px' }}
 				>
-					<Avatar src={url} alt='USER_IMAGE'></Avatar>
+					<Avatar src={url} alt={name} style={{ backgroundColor: '#cad9a0' }}></Avatar>
 					<Typography variant='h6'>Heyy, {name}</Typography>
 				</Grid>
 			</Grid>
