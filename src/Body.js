@@ -189,7 +189,7 @@ function Body(props) {
 								spacing={1}
 								justify='flex-start'
 								alignItems='center'
-								// style={{ paddingTop: '20px', paddingRight: '10px' }}
+								style={{ paddingTop: '20px', paddingRight: '10px' }}
 							>
 								<Grid item>
 									<img
