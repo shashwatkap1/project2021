@@ -175,7 +175,7 @@ function Body(props) {
 				</Grid>
 				<Grid
 					container
-					justify='space-between'
+					justify='center'
 					style={{ paddingTop: '30px', paddingLeft: '25px', paddingRight: '10px' }}
 				>
 					{recentlyPlayed.map((track) => {
