@@ -173,7 +173,11 @@ function Body(props) {
 						Recently Played
 					</Typography>
 				</Grid>
-				<Grid container style={{ paddingTop: '30px', paddingLeft: '25px', paddingRight: '10px' }}>
+				<Grid
+					container
+					justify='space-between'
+					style={{ paddingTop: '30px', paddingLeft: '25px', paddingRight: '10px' }}
+				>
 					{recentlyPlayed.map((track) => {
 						const { track: name, artist, url, preview } = track;
 						return (
