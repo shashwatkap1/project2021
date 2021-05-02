@@ -1,4 +1,4 @@
-import { createMuiTheme } from '@material-ui/core';
+import { colors, createMuiTheme } from '@material-ui/core';
 
 const theme = createMuiTheme({
 	palette: {
@@ -11,21 +11,17 @@ const theme = createMuiTheme({
 		white: {
 			main: '#ffffff',
 		},
+		primary1: {
+			main: colors.backgroundColor,
+		},
 	},
 	typography: {
-		fontFamily: [
-			'-apple-system',
-			'BlinkMacSystemFont',
-			'"Segoe UI"',
-			'Roboto',
-			'"Helvetica Neue"',
-			'Arial',
-			'sans-serif',
-			'"Apple Color Emoji"',
-			'"Segoe UI Emoji"',
-			'"Segoe UI Symbol"',
-		].join(','),
+		fontFamily: '"Montserrat", Arial, Helvetica, sans-serif',
 		fontSize: 12,
+
+		allVariants: {
+			color: '#001b3d',
+		},
 	},
 });
 export default theme;

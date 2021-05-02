@@ -44,7 +44,8 @@ refresh()
     },[count] )
     const Curr=()=>{
         const{device:{name :devmodel="Dummy"} ,item :{name:track="Null", preview_url:mp3_url}}=curr
-        const audio=new Audio(mp3_url)
+        const audio = new Audio(mp3_url)
+        
         const start=()=>
         audio.play()
         const pause=()=>

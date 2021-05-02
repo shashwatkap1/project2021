@@ -1,4 +1,4 @@
-import { Avatar, Grid, Typography } from '@material-ui/core';
+import { Avatar, colors, Grid, Typography } from '@material-ui/core';
 
 import React, { useState, useEffect } from 'react';
 import logo from './LOGO.png';
@@ -9,8 +9,8 @@ function Header(props) {
 			position: 'fixed',
 			width: '100%',
 			height: '60px',
-			background: 'linear-gradient(to   right, #FBD786,#C6FFDD)',
-
+			// background: 'linear-gradient(to   right, #FBD786,#C6FFDD)',
+			backgroundColor: colors.backgroundColor,
 			overflow: 'hidden',
 		},
 		logo: {

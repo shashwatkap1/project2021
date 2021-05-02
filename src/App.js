@@ -7,12 +7,14 @@ import Player from './Player';
 import { useDataLayerValue } from './DataLayer';
 import LoginSuccessful from './Successful2';
 import Main from './Main';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 export const spotify = new SpotifyWebApi();
 function App() {
 	const [token, setToken] = useState();
 
 	useEffect(() => {
 		const hash = getTokenFromUrl();
+		console.log(hash);
 		window.location.hash = '';
 		const _token = hash.access_token;
 		if (_token) {

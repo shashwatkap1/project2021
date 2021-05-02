@@ -1,8 +1,8 @@
 export const authEndpoint = 'https://accounts.spotify.com/authorize';
 const clientId = 'e0dac4cc38ef4a469e96c55d9906006f';
-const local = 'http://localhost:3000/';
+const local = 'http://localhost:3000/home';
 const dev = 'https://midproject.netlify.app/';
-const redirectUri = dev;
+const redirectUri = local;
 const scopes = [
 	'user-read-currently-playing',
 	'user-read-recently-played',
@@ -11,6 +11,7 @@ const scopes = [
 	'user-modify-playback-state',
 ];
 export const getTokenFromUrl = () => {
+	console.log(window.location.href);
 	return window.location.hash
 		.substring(1)
 		.split('&')
