@@ -28,30 +28,13 @@ function Header2(props) {
 	let history = useHistory();
 	const url = images[0] ? images[0].url : 'fgh';
 	return (
-		<AppBar position='sticky' color='primary1' style={{ minHeight: '30px' }}>
+		<AppBar position='sticky' color='default' style={{ minHeight: '30px' }}>
 			<Toolbar>
 				<Grid container spacing={2} direction='row' justify='space-between' alignItems='center'>
-					<Grid item md={6} xs={6} justify='flex-start'>
+					<Grid item md={6} xs={6}>
 						<img style={style.logo} src={logo} alt='logo' />
 					</Grid>
-					{/* <Grid item md={8} xs={4}>
-						<Router>
-							<BottomNavigation showLabels style={{ position: 'sticky' }}>
-								<BottomNavigationAction
-									onClick={() => history.push('/Home')}
-									label='Recents'
-									icon={<QueueMusicIcon />}
-								/>
-								<BottomNavigationAction label='Favorites' icon={<FavoriteIcon />} />
-								<BottomNavigationAction label='Nearby' icon={<LocationOnIcon />} />
-							</BottomNavigation>
-							<Switch>
-								<Route path='/login'>
-									<Login></Login>
-								</Route>
-							</Switch>
-						</Router>
-					</Grid> */}
+
 					<Grid
 						item
 						container

@@ -10,7 +10,7 @@ function Routes() {
 		<Router>
 			<Switch>
 				<Route path={page} exact component={Login} />
-				<Route path='/home' component={Main} />
+				<Route to={'/home'.slice(0, -1)} component={Main} />
 			</Switch>
 		</Router>
 	);

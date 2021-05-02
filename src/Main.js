@@ -17,11 +17,17 @@ function Main(props) {
 	let history = useHistory();
 	useEffect(() => {
 		const getUser = async () => {
-			const data = await spotify.getMe();
+			try {
+				const data = await spotify.getMe();
 
-			setUser(data);
+				setUser(data);
+			} catch (error) {
+				console.log(error);
+				localStorage.removeItem('token');
+				history.push('/');
+			}
 		};
-		getUser();
+		if (token) getUser();
 	}, [token]);
 
 	useEffect(() => {
@@ -30,7 +36,8 @@ function Main(props) {
 			console.log('in if');
 			const hash = getTokenFromUrl();
 			console.log(hash);
-			window.location.hash = '';
+			// window.location.hash = '';
+			history.push('/home');
 			const _token = hash.access_token;
 			if (_token) {
 				console.log('TOKEN FOUND');
@@ -40,13 +47,13 @@ function Main(props) {
 			}
 		} else {
 			console.log('Token in else');
-			window.location.hash = '';
+
+			// window.location.hash = '';
 			setToken(localStorage.getItem('token'));
 			spotify.setAccessToken(localStorage.getItem('token'));
 		}
 	}, []);
 	let page = useParams();
-	console.log('Page', page);
 	if (user) {
 		return (
 			<div

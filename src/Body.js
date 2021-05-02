@@ -79,13 +79,14 @@ function Body(props) {
 				</Grid>
 				<Grid container justify='center'>
 					{recentlyPlayed
-						? recentlyPlayed.map((track) => {
+						? recentlyPlayed.map((track, idx) => {
 								const { track: name, artist, url, preview_url } = track;
 								return (
 									<Grid
 										container
 										item
 										xs={6}
+										key={idx}
 										sm={3}
 										style={{ paddingTop: '20px', paddingBottom: '30px' }}
 										direction='column'
@@ -239,7 +240,7 @@ function Body(props) {
 				</Grid>
 
 				<Grid container justify='center' style={{ paddingLeft: '10px', paddingRight: '10px' }}>
-					{playlists.map((playlist) => {
+					{playlists.map((playlist, idx) => {
 						const {
 							description,
 							name,
@@ -254,6 +255,7 @@ function Body(props) {
 								style={{ paddingTop: '20px', paddingBottom: '30px' }}
 								sm={4}
 								xs={6}
+								key={idx}
 								direction='column'
 								playlist={playlist}
 								alignItems='center'
