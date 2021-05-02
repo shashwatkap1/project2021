@@ -10,7 +10,7 @@ function Routes() {
 		<Router>
 			<Switch>
 				<Route path={page} exact component={Login} />
-				<Route path='/home' exact component={Main} />
+				<Route path='/home' component={Main} />
 			</Switch>
 		</Router>
 	);
