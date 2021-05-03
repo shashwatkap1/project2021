@@ -28,7 +28,12 @@ function Header2(props) {
 	let history = useHistory();
 	const url = images[0] ? images[0].url : 'fgh';
 	return (
-		<AppBar position='sticky' color='default' style={{ minHeight: '30px' }}>
+		<AppBar
+			position='sticky'
+			color='default'
+			onScroll={() => (style = { backgroundColor: 'black' })}
+			style={{ minHeight: '30px' }}
+		>
 			<Toolbar>
 				<Grid container spacing={2} direction='row' justify='space-between' alignItems='center'>
 					<Grid item md={6} xs={6}>

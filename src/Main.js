@@ -49,6 +49,8 @@ function Main(props) {
 			console.log('Token in else');
 
 			// window.location.hash = '';
+			history.push('/home');
+
 			setToken(localStorage.getItem('token'));
 			spotify.setAccessToken(localStorage.getItem('token'));
 		}

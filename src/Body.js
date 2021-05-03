@@ -14,6 +14,8 @@ import logo from './LOGO.png';
 import recent from './Recent.png';
 import './Body.css';
 import { colors } from './colors';
+const defaultPlaylistImage =
+	'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFmlFPNOsNw6Y7VC5VuIB98VaDIcqfszpqDO3OBnfHTPG7bMrCIN8gyGj9-2OefqOid20&usqp=CAU';
 function Body(props) {
 	const [playlists, setPlaylists] = useState();
 	const [currPlaylist, setCurrPlaylist] = useState();
@@ -28,7 +30,7 @@ function Body(props) {
 	useEffect(() => {
 		const getPlaylist = async () => {
 			const playlists = await spotify.getUserPlaylists();
-
+			console.log('hello,', playlists);
 			setPlaylists(playlists.items);
 		};
 		async function getRecentlyPlayed() {
@@ -240,39 +242,44 @@ function Body(props) {
 				</Grid>
 
 				<Grid container justify='center' style={{ paddingLeft: '10px', paddingRight: '10px' }}>
-					{playlists.map((playlist, idx) => {
-						const {
-							description,
-							name,
+					{playlists.length > 0 ? (
+						playlists.map((playlist, idx) => {
+							console.log(playlist);
 
-							images: [{ url }],
-						} = playlist;
+							const {
+								description,
+								name,
 
-						return (
-							<Grid
-								container
-								item
-								style={{ paddingTop: '20px', paddingBottom: '30px' }}
-								sm={4}
-								xs={6}
-								key={idx}
-								direction='column'
-								playlist={playlist}
-								alignItems='center'
-								justify='flex-start'
-							>
-								<img
-									src={url}
-									style={{ ...style.image, cursor: 'pointer' }}
-									onClick={() => handleClick(playlist)}
-									alt='PLAYLIST'
-								></img>
-								<Typography align='center' variant='h5'>
-									{name}
-								</Typography>{' '}
-							</Grid>
-						);
-					})}
+								images: [{ url = defaultPlaylistImage } = {}],
+							} = playlist;
+							return (
+								<Grid
+									container
+									item
+									style={{ paddingTop: '20px', paddingBottom: '30px' }}
+									sm={4}
+									xs={6}
+									key={idx}
+									direction='column'
+									playlist={playlist}
+									alignItems='center'
+									justify='flex-start'
+								>
+									<img
+										src={url}
+										style={{ ...style.image, cursor: 'pointer' }}
+										onClick={() => handleClick(playlist)}
+										alt='PLAYLIST'
+									></img>
+									<Typography align='center' variant='h5'>
+										{name}
+									</Typography>{' '}
+								</Grid>
+							);
+						})
+					) : (
+						<LinearProgress color='default'></LinearProgress>
+					)}
 					<Grid
 						container
 						item
